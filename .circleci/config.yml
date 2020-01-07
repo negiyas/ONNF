@@ -24,26 +24,16 @@ jobs:
           key: V2-LLVM-PROJECT-{{ arch }}
           paths:
             - llvm-project
-      - run:
-          name: Debug
-          command: |
-            ls
-            pwd
       - checkout:
           path: ONNF
       - run:
-          name: Debug
-          command: |
-            ls
-            pwd
-      - run:
           name: Pull Submodules
           command: |
+            cd ONNF
             git submodule update --init --recursive
       - run:
           name: Install ONNF
           command: |
-            cd ..
             source ONNF/utils/install-onnf.sh
             LIT_OPTS=-v make check-mlir-lit
       - run:

@@ -24,8 +24,7 @@ jobs:
           key: V2-LLVM-PROJECT-{{ arch }}
           paths:
             - llvm-project
-
-      - checkout
+      - checkout ONNF
       - run:
           name: Pull Submodules
           command: |

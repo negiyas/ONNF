@@ -1,1 +1,1 @@
-add_subdirectory(doc-check)
+add_subdirectory(doc_check)

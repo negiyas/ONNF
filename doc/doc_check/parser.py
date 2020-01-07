@@ -9,7 +9,7 @@ def parse_code_section_delimiter(ctx):
         raise ValueError("Did not parse a code section delimiter")
 
 
-def try_parse_and_directive(line: str, directive_config: List[Dict[str, Any]], ctx):
+def try_parse_and_handle_directive(line: str, ctx):
     from directive_impl import same_as_file
 
     all_directives: List[Directive] = [
@@ -17,6 +17,7 @@ def try_parse_and_directive(line: str, directive_config: List[Dict[str, Any]], c
     ]
 
     for directive in all_directives:
+        directive_config = []
         if succeeded(directive.try_parse_directive(line, "md", directive_config)):
             directive.handle(directive_config.pop(), ctx)
             return success(directive_config)

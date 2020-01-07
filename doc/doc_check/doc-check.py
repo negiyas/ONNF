@@ -32,8 +32,7 @@ def main(args):
         with ctx.open(markdown_filename) as markdown_file:
             while not markdown_file.eof():
                 line = markdown_file.readline()
-                directive_config = []
-                try_parse_and_directive(line, directive_config, ctx)
+                try_parse_and_handle_directive(line, ctx)
 
 
 if __name__ == "__main__":

@@ -36,7 +36,7 @@ jobs:
           command: source ONNF/utils/install-onnf.sh
       - run:
           name: Run DocCheck
-          command: cd ONNF && cmake --build . --target check-doc
+          command: cd ONNF/build && cmake --build . --target check-doc
       - run:
           name: Print the Current Time
           command: date

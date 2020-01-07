@@ -35,7 +35,7 @@ jobs:
           name: Install ONNF
           command: |
             source ONNF/utils/install-onnf.sh
-            LIT_OPTS=-v make check-mlir-lit
+            cmake --build . --target check-doc
       - run:
           name: Print the Current Time
           command: date

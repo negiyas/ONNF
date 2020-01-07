@@ -3,4 +3,4 @@ export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
 
 mkdir ONNF/build && cd ONNF/build
 cmake ..
-cmake --build . --target all
+cmake --build . --target onnf, check-mlir-lit

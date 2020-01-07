@@ -23,7 +23,7 @@ jobs:
             # mlir-opt executable exists.
             if [ ! -f llvm-project/build/bin/mlir-opt ]; then
               export MAKEFLAGS=-j4
-              source .circleci/install-mlir.sh
+              source utils/install-mlir.sh
             fi
       - save_cache:
           key: V2-LLVM-PROJECT-{{ arch }}
@@ -32,9 +32,7 @@ jobs:
       - run:
           name: Install ONNF
           command: |
-            mkdir build && cd build
-            LLVM_PROJ_SRC=$(pwd)/../llvm-project/ LLVM_PROJ_BUILD=$(pwd)/../llvm-project/build cmake ..
-            make all
+            source utils/install-onnf.sh
             LIT_OPTS=-v make check-mlir-lit
       - run:
           name: Print the Current Time

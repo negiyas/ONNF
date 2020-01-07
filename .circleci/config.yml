@@ -33,9 +33,10 @@ jobs:
             git submodule update --init --recursive
       - run:
           name: Install ONNF
-          command: |
-            source ONNF/utils/install-onnf.sh
-            cmake --build . --target check-doc
+          command: source ONNF/utils/install-onnf.sh
+      - run:
+          name: Run DocCheck
+          command: cd ONNF && cmake --build . --target check-doc
       - run:
           name: Print the Current Time
           command: date

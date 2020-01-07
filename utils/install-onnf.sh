@@ -1,3 +1,4 @@
+# Export environment variables pointing to LLVM-Projects.
 export LLVM_PROJ_SRC=$(pwd)/llvm-project/
 export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
 

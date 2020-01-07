@@ -5,7 +5,7 @@ Open Neural Network Frontend : an ONNX frontend for MLIR.
 
 ## Installation
 
-Firstly, install MLIR:
+Firstly, install MLIR (as a part of LLVM-Project):
 
 [same-as-file]: <> (utils/install-mlir.sh)
 ``` bash
@@ -33,6 +33,7 @@ To build ONNF, use the following command:
 ```
 git clone --recursive git@github.com:clang-ykt/ONNF.git
 
+# Export environment variables pointing to LLVM-Projects.
 export LLVM_PROJ_SRC=$(pwd)/llvm-project/
 export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
 

@@ -5,11 +5,6 @@ jobs:
       - image: circleci/python
 
     steps:
-      - checkout
-      - run:
-          name: Pull Submodules
-          command: |
-            git submodule update --init --recursive
       - run:
           name: Installing GCC, CMake, Ninja, Protobuf
           command: sudo apt-get update && sudo apt-get install -y gcc g++ cmake ninja-build protobuf-compiler
@@ -29,10 +24,17 @@ jobs:
           key: V2-LLVM-PROJECT-{{ arch }}
           paths:
             - llvm-project
+
+      - checkout
+      - run:
+          name: Pull Submodules
+          command: |
+            git submodule update --init --recursive
       - run:
           name: Install ONNF
           command: |
-            source utils/install-onnf.sh
+            cd ..
+            source ONNF/utils/install-onnf.sh
             LIT_OPTS=-v make check-mlir-lit
       - run:
           name: Print the Current Time

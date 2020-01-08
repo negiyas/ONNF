@@ -1,4 +1,5 @@
 import logging
+import os
 
 
 # Based on https://stackoverflow.com/a/6367075.
@@ -27,8 +28,7 @@ class WrappedFile(object):
 
     def next_non_empty_line(self):
         while not self.eof():
-            self.line += 1
-            line = self.f.readline()
+            line = self.readline()
             if len(line.strip()):
                 return line
         raise RuntimeError("Enf of file.")
@@ -51,10 +51,16 @@ class WrappedFile(object):
 class DocCheckerCtx(object):
     def __init__(self, root_dir: str):
         self.root_dir = root_dir
+        self.doc_file = None
 
-    def open(self, file_name):
+    def open_doc(self, file_name):
         self.doc_file = WrappedFile(open(file_name, 'r'))
         return self.doc_file
+
+    def doc_file_ext(self):
+        assert self.doc_file is not None, "hasn't opened any doc file"
+        _, file_extension = os.path.splitext(self.doc_file.f.name)
+        return file_extension
 
 
 def success(states=None):

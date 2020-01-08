@@ -40,4 +40,4 @@ def handle(config, ctx):
     parse_code_section_delimiter(ctx)
 
 
-ext_to_patterns = {'md': '\[same-as-file\]: \<\> \(([^)]*)\)'}
+ext_to_patterns = {'.md': '\[same-as-file\]: \<\> \(([^)]*)\)'}

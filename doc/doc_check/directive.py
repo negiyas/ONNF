@@ -15,8 +15,9 @@ class Directive(object):
         self.custom_parser: Callable[[str], Tuple[str, Dict[str, Any]]] = custom_parser
         self.handler = handler
 
-    def try_parse_directive(self, line: str, ext: str, directive_config: List[Dict[str, Any]]) -> Tuple[str, Any]:
-        matches = self.ext_to_patterns[ext].findall(line)
+    def try_parse_directive(self, ctx: DocCheckerCtx, directive_config: List[Dict[str, Any]]) -> Tuple[str, Any]:
+        line = ctx.doc_file.next_non_empty_line()
+        matches = self.ext_to_patterns[ctx.doc_file_ext()].findall(line)
         if len(matches) > 1:
             raise ValueError("more than one directives in a line")
 

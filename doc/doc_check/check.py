@@ -37,10 +37,9 @@ def main(root_dir, exclude_dirs):
             continue
 
         print("Checking {}...".format(doc_file))
-        with ctx.open(doc_file) as markdown_file:
+        with ctx.open_doc(doc_file) as markdown_file:
             while not markdown_file.eof():
-                line = markdown_file.readline()
-                try_parse_and_handle_directive(line, ctx)
+                try_parse_and_handle_directive(ctx)
 
 
 if __name__ == "__main__":

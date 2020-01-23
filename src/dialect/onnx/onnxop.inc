@@ -315,7 +315,7 @@ def ONNXConstantOfShapeOp:ONNX_Op<"ConstantOfShape",
   let results = (outs AnyTypeOf<[AnyMemRef, AnyTensor]>);
 }
 
-def ONNXConvOp:ONNX_Op<"Conv", 
+def ONNXConvOp:ONNX_Op<"Conv",
     [NoSideEffect]> {
   let summary = "ONNX Conv operation";
   let description = [{
@@ -324,6 +324,15 @@ def ONNXConvOp:ONNX_Op<"Conv",
   }];
   let arguments = (ins AnyTypeOf<[AnyMemRef, AnyTensor]>:$X, AnyTypeOf<[AnyMemRef, AnyTensor]>:$W, AnyTypeOf<[AnyMemRef, AnyTensor]>:$B);
   let results = (outs AnyTypeOf<[AnyMemRef, AnyTensor]>);
+
+  let extraClassDeclaration = [{
+     static StringRef getAutoPadAttrName() { return "auto_pad"; }
+     static StringRef getDilationsAttrName() { return "dilations"; }
+     static StringRef getGroupAttrName() { return "group"; }
+     static StringRef getKernelShapeAttrName() { return "kernel_shape"; }
+     static StringRef getPadsAttrName() { return "pads"; }
+     static StringRef getStridesAttrName() { return "strides"; }
+  }];
 }
 
 def ONNXConvIntegerOp:ONNX_Op<"ConvInteger", 
@@ -2831,7 +2840,7 @@ def ONNXSliceOp:ONNX_Op<"Slice",
 }
 
 def ONNXSoftmaxOp:ONNX_Op<"Softmax", 
-    [NoSideEffect]> {
+    [NoSideEffect, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
   let summary = "ONNX Softmax operation";
   let description = [{
     "The operator computes the softmax (normalized exponential) values for each layer in the batch"
@@ -3098,6 +3107,12 @@ def ONNXTransposeOp:ONNX_Op<"Transpose",
   }];
   let arguments = (ins AnyTypeOf<[AnyMemRef, AnyTensor]>:$data);
   let results = (outs AnyTypeOf<[AnyMemRef, AnyTensor]>);
+
+  let extraClassDeclaration = [{
+    static StringRef getPermAttrName() { return "perm"; }
+  }];
+
+  let verifier = [{ return ::verify(*this); }];
 }
 
 def ONNXUniqueOp:ONNX_Op<"Unique", 

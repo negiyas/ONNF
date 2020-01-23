@@ -20,12 +20,13 @@ cmake -G Ninja ../llvm \
    -DLLVM_ENABLE_ASSERTIONS=ON \
    -DLLVM_ENABLE_RTTI=ON
 
-cmake --build . --target check-mlir -- ${MAKEFLAGS}
+cmake --build . --target
+cmake --build . --target check-mlir
 ```
 
 Two environment variables need to be set:
-- LLVM_PROJ_SRC should point to the llvm src directory (e.g., llvm-project/llvm).
-- LLVM_PROJ_BUILD should point to the llvm build directory (e.g., llvm-project/build).
+- LLVM_PROJ_SRC should point to the llvm-project src directory (e.g., llvm-project/).
+- LLVM_PROJ_BUILD should point to the llvm-project build directory (e.g., llvm-project/build).
 
 To build ONNF, use the following command:
 
@@ -42,6 +43,7 @@ cmake ..
 cmake --build . --target onnf
 
 # Run FileCheck tests:
+export LIT_OPTS=-v
 cmake --build . --target check-mlir-lit
 ```
 

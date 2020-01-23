@@ -116,9 +116,11 @@ public:
         op->getName().getStringRef() != "onnx.Identity" &&
         op->getName().getStringRef() != "onnx.MatMul" &&
         op->getName().getStringRef() != "onnx.Gemm" &&
-        op->getName().getStringRef() != "onnx.FullGemm" &&
+        op->getName().getStringRef() != "onnx.GemmNoBias" &&
         op->getName().getStringRef() != "onnx.Reshape" &&
-        op->getName().getStringRef() != "onnx.Transpose")
+        op->getName().getStringRef() != "onnx.Transpose" &&
+        op->getName().getStringRef() != "onnx.Softmax" &&
+        op->getName().getStringRef() != "onnx.ConvNoBias")
       return false;
     return llvm::any_of(op->getResultTypes(), [](Type result_type) {
       return !result_type.isa<RankedTensorType>();
